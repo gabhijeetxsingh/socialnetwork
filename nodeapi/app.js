@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -17,7 +18,8 @@ mongoose.connection.on("error" , err =>{
 const postRoutes = require("./routes/post");
 
 //middleware
-app.use(morgan('dev'))
+app.use(morgan('dev'));
+app.use(bodyParser.json());
 
 app.use("/", postRoutes);
 
