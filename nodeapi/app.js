@@ -8,7 +8,7 @@ const app = express();
 
 
 //db
-mongoose.connect("mongodb+srv://ronins:ronins@socialreactapp-ppwfw.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true })
+mongoose.connect("mongodb+srv://ronins:ronins@socialreactapp-ppwfw.mongodb.net/test?retryWrites=true&w=majority", { useNewUrlParser: true , useUnifiedTopology: true })
 .then(() => console.log("DB connected"))
 
 mongoose.connection.on("error" , err =>{
