@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {  isAuthenticated  } from '../auth';
+import {  read  } from './apiUser';
 import {Redirect} from 'react-router-dom';
 
 class Profile extends Component {
@@ -12,20 +13,9 @@ class Profile extends Component {
         }
     }
 
-    componentDidMount() {
-        const {userId} = this.props.match.params
-        console.log("user id from route params", userId)
-        fetch(`${process.env.REACT_APP_API_URL}/user/${userId}`, {
-            method : "GET",
-            headers : {
-                Accept : "application/json",
-                "Content-Type" : "application/json",
-                "Authorization" : `Bearer ${isAuthenticated().token}`
-            }
-        })
-        .then(response=> {
-            return response.json();
-        })
+    init = (userId) => {
+        const token = isAuthenticated().token;
+        read(userId, token)
         .then(data => {
             if(data.error) {
                 console.log("ERROR")
@@ -36,6 +26,13 @@ class Profile extends Component {
                 console.log(data)
             }
         })
+    }
+
+    componentDidMount() {
+        const {userId} = this.props.match.params;
+        this.init(userId)
+        console.log("user id from route params", userId)
+
     }
 
     render() {
