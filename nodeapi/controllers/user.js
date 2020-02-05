@@ -34,7 +34,7 @@ exports.allUsers = (req, res, next) => {
 			});
 		}
 
-		res.json({users});
+		res.json(users);
 	}).select("name email updated created")
 }
 
